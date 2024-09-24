@@ -7,7 +7,45 @@
 </head>
 <body>
     {% block content %}
-    <h1 class="font-bold">Hi world</h1>
-    {% endblock %}
+    <h3 class="font-semibold text-4xl text-amber-500 my-8 ml-8">All Books</h3>
+    <div class="flex justify-center items-center mt-10 flex-col">
+        <div class="container w-11/12 text-xl border rounded bg-amber-100 text-amber-800 p-8">
+            {% if books %}
+            <div class="grid grid-flow-col">
+                <div class="w-full overflow-x-auto">
+                    <table class="table-auto w-full border-collapse border border-amber-600 min-w-full">
+                        <thead class="bg-amber-600 text-white">
+                            <tr>
+                                <th scope="col" class="border border-amber-500 px-4 py-2">ISBN</th>
+                                <th scope="col" class="border border-amber-500 px-4 py-2">Book Name</th>
+                                <th scope="col" class="border border-amber-500 px-4 py-2">Genre</th>
+                                <th scope="col" class="border border-amber-500 px-4 py-2">Publication Date</th>
+                                <th scope="col" class="border border-amber-500 px-4 py-2">Language</th>
+                                <th scope="col" class="border border-amber-500 px-4 py-2">Available</th>
+                                <th scope="col" class="border border-amber-500 px-4 py-2">Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for book in books %}
+                            <tr class="bg-amber-50 hover:bg-orange-200">
+                                <td class="border border-amber-500 px-4 py-2">{{ book.isbn }}</td>
+                                <td class="border border-amber-500 px-4 py-2">{{ book.book_name }}</td>
+                                <td class="border border-amber-500 px-4 py-2">{{ book.genre }}</td>
+                                <td class="border border-amber-500 px-4 py-2">{{ book.publication_date }}</td>
+                                <td class="border border-amber-500 px-4 py-2">{{ book.language }}</td>
+                                <td class="border border-amber-500 px-4 py-2">{{ book.available|yesno:"Yes,No" }}</td>
+                                <td class="border border-amber-500 px-4 py-2">{{ book.rating|default_if_none:"N/A" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% else %}
+            <p class="ml-8">No Books found!</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}    
 </body>
 </html>
