@@ -8,3 +8,7 @@ def index(request):
     return render(request,'books/index.html' , {
         'books':Books.objects.all()
     })
+
+def view_books(request, id):
+    book = Books.objects.get(pk= id)
+    return HttpResponseRedirect(reverse('index'))
