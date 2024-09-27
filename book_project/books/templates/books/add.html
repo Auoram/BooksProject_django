@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books management website</title>
+</head>
+<body>
+    {% block content %}
+    <h3 class="text-center m-4">Add Book</h3>
+    {% if success%}
+    <div class="text-red-500" role="alert">
+        The Book added successfully
+        <a href="{% url 'index' %}">Go to home page.</a>
+    </div>
+    {% else %}
+    <div class="justify-center">
+        <div class="col-span-6"></div>
+    </div>
+    {% endif %}
+    {% endblock %}
+</body>
+</html>

@@ -62,6 +62,7 @@
                                                         <li>Book ISBN: {{ book.isbn }}</li>
                                                         <li>Book Title: {{ book.book_name }}</li>
                                                         <li>Book Genre: {{ book.genre }}</li>
+                                                        <li>Book Author : {{book.author.full_name}}</li>
                                                         <li>Book Publication Date: {{ book.publication_date }}</li>
                                                         <li>Book Language: {{ book.language }}</li>
                                                         <li>Book Rating: {{ book.rating|default_if_none:"N/A" }}</li>
