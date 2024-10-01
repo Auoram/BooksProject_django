@@ -1,11 +1,11 @@
 {% load static %}
 <nav class="py-3 px-4 flex justify-between items-center bg-amber-100 shadow-md shadow-amber-200">
-    <a href="/" class="text-3xl font-bold text-amber-500">Booky</a>
+    <a href="{% url 'books:index' %}" class="text-3xl font-bold text-amber-500">Booky</a>
 
     <div id="menu" class="hidden lg:flex lg:space-x-4 lg:flex-row text-center flex-col absolute top-11 right-0 h-screen w-1/2 bg-amber-100 p-4 lg:static lg:w-auto lg:h-auto lg:bg-transparent">
-        <a href="/" class="block text-2xl text-amber-500 font-semibold mb-6 lg:mb-0 mt-10 lg:mt-0">All Books</a>
-        <a href="/" class="block text-2xl text-amber-500 font-semibold mb-6 lg:mb-0">Add Books</a>
-        <a href="/" class="block text-2xl text-amber-500 font-semibold">All Authors</a>
+        <a href="{% url 'books:index' %}" class="block text-2xl text-amber-500 font-semibold mb-6 lg:mb-0 mt-10 lg:mt-0">All Books</a>
+        <a href="{% url 'books:add' %}" class="block text-2xl text-amber-500 font-semibold mb-6 lg:mb-0">Add Books</a>
+        <a href="{% url 'books:index' %}" class="block text-2xl text-amber-500 font-semibold">All Authors</a>
     </div>
 
     <button id="hamburger" class="text-3xl lg:hidden focus:outline-none">

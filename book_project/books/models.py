@@ -8,6 +8,9 @@ class Author(models.Model):
     awards = models.TextField(null=True, blank=True)
     biography = models.TextField(null=True, blank=True)
 
+    def __str__(self):
+        return self.full_name
+
 
 class Books(models.Model):
     isbn = models.CharField(max_length=13, unique=True)
