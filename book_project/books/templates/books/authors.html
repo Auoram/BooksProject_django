@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Authors</title>
+</head>
+<body>
+    {% block content %}
+    <h3 class="font-semibold text-4xl text-amber-500 my-8 ml-8">All Authors</h3>
+    <div class="flex justify-center items-center mt-10 flex-col">
+        <div class="container w-11/12 text-xl border rounded bg-amber-100 text-amber-800 p-8">
+            {% if authors %}
+            <div class="grid grid-flow-col">
+                <div class="w-full overflow-x-auto">
+                    <table class="table-auto w-full border-collapse border border-amber-600 min-w-full">
+                        <thead class="bg-amber-600 text-white">
+                            <tr>
+                                <th scope="col" class="border border-amber-500 px-4 py-2">Full Name</th>
+                                <th scope="col" class="border border-amber-500 px-4 py-2">Nationality</th>
+                                <th scope="col" class="border border-amber-500 px-4 py-2">Awards</th>
+                                <th scope="col" class="border border-amber-500 px-4 py-2">Biography</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for author in authors %}
+                            <tr class="bg-amber-50 hover:bg-orange-200">
+                                <td class="border border-amber-500 px-4 py-2">{{ author.full_name }}</td>
+                                <td class="border border-amber-500 px-4 py-2">{{ author.nationality|default_if_none:"N/A" }}</td>
+                                <td class="border border-amber-500 px-4 py-2">
+                                    <span class="short-text">
+                                        {{ author.awards|truncatewords:5|default_if_none:"No awards available" }}
+                                    </span>
+                                    {% if author.awards %}
+                                    <button class="toggle-btn text-amber-600 underline" onclick="toggleContent(this)">Show More</button>
+                                    <div class="hidden full-text">
+                                        {{ author.awards|default_if_none:"No awards available" }}
+                                    </div>
+                                    {% endif %}
+                                </td>
+                                <td class="border border-amber-500 px-4 py-2">
+                                    <span class="short-text">
+                                        {{ author.biography|truncatewords:10|default_if_none:"No biography available" }}
+                                    </span>
+                                    {% if author.biography %}
+                                    <button class="toggle-btn text-amber-600 underline" onclick="toggleContent(this)">Show More</button>
+                                    <div class="hidden full-text">
+                                        {{ author.biography|default_if_none:"No biography available" }}
+                                    </div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% else %}
+            <p class="ml-8">No Authors found!</p>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        function toggleContent(button) {
+            const fullText = button.nextElementSibling;
+            const shortText = button.previousElementSibling;
+            
+            if (fullText.classList.contains('hidden')) {
+                fullText.classList.remove('hidden');
+                shortText.classList.add('hidden');
+                button.innerText = 'Show Less';
+            } else {
+                fullText.classList.add('hidden');
+                shortText.classList.remove('hidden');
+                button.innerText = 'Show More';
+            }
+        }
+    </script>
+    {% endblock %}
+</body>
+</html>

@@ -66,12 +66,51 @@
                                                         <li>Book Publication Date: {{ book.publication_date }}</li>
                                                         <li>Book Language: {{ book.language }}</li>
                                                         <li>Book Rating: {{ book.rating|default_if_none:"N/A" }}</li>
-                                                        <li>Book Cover : <img src="{{ book.cover_image.url }}" alt="Cover image for {{ book.book_name }}" class="w-32 h-40 object-cover"></li>
+                                                        <li>Book Cover : 
+                                                        {% if book.cover_image %}
+                                                        <img src="{{ book.cover_image.url }}" alt="Cover image for {{ book.book_name }}" class="w-32 h-40 object-cover">
+                                                        {% else %}
+                                                            <span>No cover available</span>
+                                                        {% endif %}</li>
                                                     </ul>
                                                 </div>
                                                 <!-- Modal footer -->
                                                 <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-amber-600">
                                                     <button data-modal-hide="myModal{{book.id}}" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-orange-700 focus:outline-none bg-white rounded-lg border border-orange-700 hover:bg-amber-100 hover:text-amber-800 focus:z-10 focus:ring-4 focus:ring-amber-100 dark:focus:ring-amber-700 dark:bg-orange-700 dark:text-amber-50 dark:border-orange-600 dark:hover:text-white dark:hover:bg-orange-700">Close</button>
+                                                    <a class="py-2.5 px-5 ms-3 text-sm font-medium text-orange-700 focus:outline-none bg-white rounded-lg border border-orange-700 hover:bg-amber-100 hover:text-amber-800 focus:z-10 focus:ring-4 focus:ring-amber-100 dark:focus:ring-amber-700 dark:bg-orange-700 dark:text-amber-50 dark:border-orange-600 dark:hover:text-white dark:hover:bg-orange-700" href="{% url 'books:edit' book.id %}">edit</a>
+                                                    <button data-bs-toggle="modal" data-bs-target="#delete{{book.id}}" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-orange-700 focus:outline-none bg-white rounded-lg border border-orange-700 hover:bg-amber-100 hover:text-amber-800 focus:z-10 focus:ring-4 focus:ring-amber-100 dark:focus:ring-amber-700 dark:bg-orange-700 dark:text-amber-50 dark:border-orange-600 dark:hover:text-white dark:hover:bg-orange-700">Delete</button>
+                                    <!-- Modal 2-->
+                                    <div id="delete{{book.id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                        <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                            <!-- Modal content -->
+                                            <div class="relative bg-white rounded-lg shadow dark:bg-amber-700">
+                                                <!-- Modal header -->
+                                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-amber-600">
+                                                    <h3 class="text-xl font-semibold text-amber-900 dark:text-white">
+                                                        Condirm Delete
+                                                    </h3>
+                                                    <button type="button" class="text-amber-600 bg-transparent hover:bg-amber-200 hover:text-orange-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="myModal{{book.id}}">
+                                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6"/>
+                                                        </svg>
+                                                        <span class="sr-only">Close modal</span>
+                                                    </button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <div class="p-4 md:p-5 space-y-6">
+                                                    <p>Are you sure you want to delete the book: <strong>{{ book.book_name }}</strong>?</p>
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-amber-600">
+                                                    <button data-modal-hide="myModal{{book.id}}" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-orange-700 focus:outline-none bg-white rounded-lg border border-orange-700 hover:bg-amber-100 hover:text-amber-800 focus:z-10 focus:ring-4 focus:ring-amber-100 dark:focus:ring-amber-700 dark:bg-orange-700 dark:text-amber-50 dark:border-orange-600 dark:hover:text-white dark:hover:bg-orange-700">Cancel</button>
+                                                    <form method="post" action="{% url 'books:delete' book.id %}">
+                                                      {% csrf_token %}
+                                                      <input type="submit" class="py-2.5 px-5 ms-3 text-sm font-medium text-orange-700 focus:outline-none bg-white rounded-lg border border-orange-700 hover:bg-amber-100 hover:text-amber-800 focus:z-10 focus:ring-4 focus:ring-amber-100 dark:focus:ring-amber-700 dark:bg-orange-700 dark:text-amber-50 dark:border-orange-600 dark:hover:text-white dark:hover:bg-orange-700" value="Delete">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                                 </div>
                                             </div>
                                         </div>

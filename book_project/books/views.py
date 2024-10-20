@@ -18,7 +18,7 @@ def add(request):
     if request.method == 'POST':
         form = BooksForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()  # You don't need to manually assign fields; the form will handle this
+            form.save()
             return render(request, 'books/add.html', {
                 'form': BooksForm(),
                 'success': True
@@ -29,3 +29,30 @@ def add(request):
     return render(request, 'books/add.html', {
         'form': form
     })
+
+def edit(request, id):
+    book = Books.objects.get(pk=id)
+    if request.method == 'POST':
+        form = BooksForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return render(request, 'books/edit.html', {
+                'form': form,
+                'success': True
+            })
+    else:
+        form = BooksForm(instance=book)
+
+    return render(request, 'books/edit.html', {
+        'form': form
+    })
+
+def delete(request, id):
+    if request.method == 'POST':
+        book = Books.objects.get(pk=id)
+        book.delete()
+    return HttpResponseRedirect(reverse('books:index'))
+
+def all_authors(request):
+    authors = Author.objects.all()
+    return render(request, 'books/authors.html', {'authors': authors})
